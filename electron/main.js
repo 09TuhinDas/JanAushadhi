@@ -13,7 +13,7 @@ function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'), // Path to your preload script
+      preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true, // Enable context isolation
       enableRemoteModule: false,
     },

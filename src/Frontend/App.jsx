@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+// src/App.jsx
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components1/Navbar";
 import "./App.css";
@@ -11,26 +12,6 @@ import EditInvent from "./components2/EditInvent";
 import Invoice from "./components2/Invoice";
 
 function App() {
-  useEffect(() => {
-    window.electron.ipcRenderer.on("update_available", () => {
-      alert("A new update is available. Downloading now...");
-    });
-
-    window.electron.ipcRenderer.on("update_downloaded", () => {
-      const response = window.confirm(
-        "Update downloaded. It will be installed on restart. Restart now?"
-      );
-      if (response) {
-        window.electron.ipcRenderer.send("restart_app");
-      }
-    });
-
-    return () => {
-      window.electron.ipcRenderer.removeAllListeners("update_available");
-      window.electron.ipcRenderer.removeAllListeners("update_downloaded");
-    };
-  }, []);
-
   return (
     <Router>
       <ScrollToTop />
@@ -46,5 +27,4 @@ function App() {
     </Router>
   );
 }
-
 export default App;
