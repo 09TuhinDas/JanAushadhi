@@ -13,7 +13,9 @@ function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration: true,
+      preload: path.join(__dirname, 'preload.js'), // Path to your preload script
+      contextIsolation: true, // Enable context isolation
+      enableRemoteModule: false,
     },
   });
 
@@ -52,4 +54,9 @@ autoUpdater.on('update-downloaded', () => {
 const { ipcMain } = require('electron');
 ipcMain.on('restart_app', () => {
   autoUpdater.quitAndInstall();
+});
+
+ipcMain.on('some_event_from_renderer', (event, data) => {
+  console.log('Received data from renderer:', data);
+  // Handle data or send response back to renderer process
 });
